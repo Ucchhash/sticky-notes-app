@@ -1,5 +1,9 @@
 const notesContainer = document.getElementById('app');
 const addNoteButton = document.querySelector('.add-note');
+const modal = document.getElementById('modal')
+const yesBtn = document.querySelector('#btnDeleteYes')
+const noBtn = document.querySelector('#btnDeleteNo')
+
 
 getNotes().forEach(note => {
     const noteElement = createNoteElement(note.id, note.content);
@@ -27,11 +31,18 @@ function createNoteElement(id, content){
     })
 
     element.addEventListener('dblclick', ()=>{
-        const doDelete = confirm('Are you sure you want to delete this instance of notes?')
+        // const doDelete = confirm('Are you sure you want to delete this instance of notes?')
+        modal.showModal()
 
-        if(doDelete){
+        yesBtn.addEventListener('click', ()=>{
             deleteNote(id, element)
-        }
+            modal.close()
+        })
+
+        noBtn.addEventListener('click', ()=>{
+            modal.close()
+        })
+
     })
 
     return element;
